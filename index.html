@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Conversor</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+
+        <div id="app">
+            <div class="container">
+                
+                <h2 id="title">Convertir <strong>{{moneda1}}</strong> a <strong>{{moneda2}}</strong>
+                </h2>
+
+                <label id="labelmoneda" for="conversion">{{label}} </label>
+                <input id="conversion" type="number"
+                    v-bind:placeholder="resultado" v-model="valor" @input="calcular">
+                <label id="resultado" for="conversion"> = {{resultado}}
+                    {{moneda2}}</label>
+                <br><br>
+
+                <button class="button" @click="change"><img id="btnicon"
+                        src="img/switch.jpg" alt=""></button>
+            </div>
+
+            <script src="js/main.js"></script>
+
+        </div>
+    </body>
+</html>
