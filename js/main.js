@@ -1,5 +1,12 @@
 function conversorAPI() {
-  return fetch('https://wilfredopaiz98.lib.id/dolarlempira@dev/')
+  /* My Own API
+  https://wilfredopaiz98.lib.id/dolarlempira@dev/ 
+
+  in:
+  https://code.stdlib.com/
+  */
+
+  return fetch('http://free.currencyconverterapi.com/api/v5/convert?q=USD_HNL&compact=y')
     .then(response => response.json());
 };
 
@@ -18,9 +25,9 @@ var conversor = new Vue({
   },
   methods: {
     actualizarDatos: function () {
-      conversorAPI().then(monedas => {
-        this.lxd = monedas.dolar;
-        this.dxl = monedas.lempira;
+      conversorAPI().then(dolar_a_lempira => {
+        this.lxd = dolar_a_lempira.USD_HNL.val;
+        this.dxl = 1 / this.lxd;
         this.tasa = this.lxd;
       });
     },
