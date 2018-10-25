@@ -1,10 +1,15 @@
-new Vue({
+function conversorAPI() {
+  return fetch('https://wilfredopaiz98.lib.id/dolarlempira@dev/')
+    .then(response => response.json());
+};
+
+var conversor = new Vue({
   el: "#app",
   data: {
-    lxd : "24.0789",
-    dxl: "0.0412",
-    tasa: "24.0789",
-    moneda1 : "Dolares",
+    lxd: null,
+    dxl: null,
+    tasa: null,
+    moneda1: "Dolares",
     moneda2: "Lempiras",
     label: "$",
     valor: "",
@@ -12,33 +17,42 @@ new Vue({
     aux: ""
   },
   methods: {
-      calcular: function(){
-        if (this.valor >= 0){
-          this.resultado = Math.round((this.valor * this.tasa) * 200) / 200;
-        }else{
-            this.resultado = 0;
-        }
+    actualizarDatos: function () {
+      conversorAPI().then(monedas => {
+        this.lxd = monedas.dolar;
+        this.dxl = monedas.lempira;
+        this.tasa = this.lxd;
+      });
     },
-
-    change: function(){
-    
-      if (this.label === "$"){
+    calcular: function () {
+      if (this.valor >= 0) {
+        this.resultado = Math.round((this.valor * this.tasa) * 200) / 200;
+      } else {
+        this.resultado = 0;
+      }
+    },
+    change: function () {
+      if (this.label === "$") {
         this.label = "L";
         this.switchMonedas();
         this.tasa = this.dxl;
-      }else{
+      } else {
         this.label = "$";
         this.switchMonedas();
         this.tasa = this.lxd;
       }
-      
+
       this.valor = "";
       this.resultado = "0.00";
     },
-    switchMonedas(){
+    switchMonedas: function () {
       this.aux = this.moneda1;
       this.moneda1 = this.moneda2;
       this.moneda2 = this.aux;
     }
+  },
+  mounted(){
+    this.actualizarDatos();
   }
-})
+});
+
